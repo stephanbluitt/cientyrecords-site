@@ -50,10 +50,12 @@ En el panel DNS de tu dominio (donde están hoy tus registros MX):
 
 (`TUUSUARIO` = tu usuario u organización de GitHub, sin el nombre del repo.)
 
-**Borra solo** los registros que choquen con los anteriores:
+**Borra solo** los registros que choquen con los anteriores (si existen):
 - Otros registros **A / AAAA** en `@` (p. ej. de una página de "parking" del registrador).
-- Un registro existente en `www` (CNAME o A).
+- Un registro propio en `www` (CNAME o A).
 - Cualquier "URL forwarding / redirect" del registrador para el dominio raíz.
+
+**Estado actual (Northwest, panel *Domains → cientyrecords.com → DNS Settings*):** ya están creados los 4 registros A en `@` y el CNAME `www → stephanbluitt.github.io.`. No había registro propio en `www`, solo un comodín `* → 66.223.49.89` de Northwest; se dejó intacto porque un registro específico (`www`) tiene prioridad sobre el comodín. HTTPS está activo y forzado.
 
 **No toques** (son del correo):
 - Registros **MX**.
@@ -78,3 +80,9 @@ dig +short cientyrecords.com MX
 ```
 
 El primero debe mostrar las cuatro IPs `185.199.x.153`, el segundo `TUUSUARIO.github.io.` y el tercero tus MX de siempre, sin cambios.
+
+> Si `dig` no muestra los registros nuevos, puede ser la caché de tu red (hasta 1 hora). Compruébalo en https://dns.google/resolve?name=cientyrecords.com&type=A
+
+## Actualizar el sitio
+
+Edita los archivos y súbelos a `main` (por ejemplo con `git push`). GitHub Pages publica los cambios en 1–2 minutos.
